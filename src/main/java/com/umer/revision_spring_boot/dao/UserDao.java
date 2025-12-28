@@ -1,19 +1,19 @@
 package com.umer.revision_spring_boot.dao;
 import com.umer.revision_spring_boot.model.User;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface UserDao {
 
-    List<User> getAllUsers();
+    List<User> selectAllUsers();
 
-    User getUser(UUID userId);
+    Optional<User> selectUserByUserId(UUID userId);
 
     int updateUser(User user) ;
 
-    int removeUser(UUID userId);
+    int deleteUserByUserId(UUID userId);
 
-    int insertUser(User user);
 
     int insertUser(UUID userId, User user);
 

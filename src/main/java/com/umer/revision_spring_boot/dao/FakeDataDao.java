@@ -2,13 +2,18 @@ package com.umer.revision_spring_boot.dao;
 
 import java.util.List;
 import java.util.UUID;
+
+import org.springframework.stereotype.Repository;
+
 import java.util.Map;
+import java.util.Optional;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.umer.revision_spring_boot.model.User;
 import com.umer.revision_spring_boot.model.User.Gender;
 
+@Repository
 public class FakeDataDao implements UserDao {
 
     private static Map<UUID, User> database;
@@ -20,13 +25,13 @@ public class FakeDataDao implements UserDao {
     }
 
     @Override
-    public List<User> getAllUsers() {
+    public List<User> selectAllUsers() {
         return new ArrayList<>(database.values());
     }
 
     @Override
-    public User getUser(UUID userId) {
-        return database.get(userId);
+    public Optional<User> selectUserByUserId(UUID userId) {
+        return Optional.ofNullable(database.get(userId));
     }
 
     @Override
@@ -36,7 +41,7 @@ public class FakeDataDao implements UserDao {
     }
 
     @Override
-    public int removeUser(UUID userId) {
+    public int deleteUserByUserId(UUID userId) {
         database.remove(userId);
         return 1;
     }
