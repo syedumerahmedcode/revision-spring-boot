@@ -16,9 +16,10 @@ import com.umer.revision_spring_boot.model.User.Gender;
 @Repository
 public class FakeDataDao implements UserDao {
 
-    private static Map<UUID, User> database;
+    private Map<UUID, User> database;
 
-    static {
+    public FakeDataDao() {
+
         database = new HashMap<>();
         UUID user1Id = UUID.randomUUID();
         database.put(user1Id, new User(user1Id, "firstName1", "lastName1", Gender.MALE, 25, "firstName1@email.com"));
