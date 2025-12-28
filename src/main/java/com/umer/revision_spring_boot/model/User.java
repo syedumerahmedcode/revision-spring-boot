@@ -11,9 +11,6 @@ public class User {
     private final Integer age;
     private final String email;
 
-    
-
-
     public User(UUID userId, String firstname, String lastname, Gender gender, Integer age, String email) {
         this.userId = userId;
         this.firstname = firstname;
@@ -23,50 +20,29 @@ public class User {
         this.email = email;
     }
 
-    
-
-
     public UUID getUserId() {
         return userId;
     }
-
-
-
 
     public String getFirstname() {
         return firstname;
     }
 
-
-
-
     public String getLastname() {
         return lastname;
     }
-
-
-
 
     public Gender getGender() {
         return gender;
     }
 
-
-
-
     public Integer getAge() {
         return age;
     }
 
-
-
-
     public String getEmail() {
         return email;
     }
-
-    
-
 
     @Override
     public String toString() {
@@ -74,14 +50,9 @@ public class User {
                 + ", age=" + age + ", email=" + email + "}";
     }
 
-
-
-
-    enum Gender {
+    public enum Gender {
         MALE,
         FEMALE
     }
-
-
 
 }
