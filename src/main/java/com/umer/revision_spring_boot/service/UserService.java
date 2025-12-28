@@ -42,8 +42,7 @@ public class UserService {
     public int removeUser(UUID userId) {
         Optional<User> optionalUser = getUser(userId);
         if (optionalUser.isPresent()) {
-            userDao.deleteUserByUserId(userId)(userId
-            );
+            userDao.deleteUserByUserId(userId);
             return 1;
         }
         return -1;
