@@ -1,5 +1,6 @@
 package com.umer.revision_spring_boot.model;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -28,8 +29,17 @@ public class User {
         this.email = email;
     }
 
+    @JsonProperty("id")
     public UUID getUserId() {
         return userId;
+    }
+
+    public String getFullName() {
+        return firstname + " " + lastname;
+    }
+
+    public int getDateofBirth() {
+        return LocalDate.now().minusYears(age).getYear();
     }
 
     public String getFirstname() {
