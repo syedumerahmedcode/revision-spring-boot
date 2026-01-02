@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.umer.revision_spring_boot.model.User;
 import com.umer.revision_spring_boot.service.UserService;
 
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 
 @RestController
@@ -30,14 +31,16 @@ public class UserResource {
     }
 
     @RequestMapping(
-            method = RequestMethod.GET
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON
     )
-    public List<User> fetchUsers() {
-        return userService.getAllUsers();
+    public List<User> fetchUsers(@QueryParam("gender") String gender) {
+        return userService.getAllUsers(Optional.ofNullable(gender));
     }
 
     @RequestMapping(
             method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON,
             path = "{userId}"
     )
     public ResponseEntity<?> fetchUser(@PathVariable("userId") UUID userId) {
@@ -51,7 +54,8 @@ public class UserResource {
 
     @RequestMapping(
             method = RequestMethod.POST,
-            consumes = MediaType.APPLICATION_JSON
+            consumes = MediaType.APPLICATION_JSON,
+            produces = MediaType.APPLICATION_JSON
     )
     public ResponseEntity<Integer> insertNewUser(@RequestBody User user) {
         int result = userService.insertUser(user);
@@ -64,7 +68,8 @@ public class UserResource {
 
     @RequestMapping(
             method = RequestMethod.PUT,
-            consumes = MediaType.APPLICATION_JSON
+            consumes = MediaType.APPLICATION_JSON,
+            produces = MediaType.APPLICATION_JSON
     )
     public ResponseEntity<Integer> updateUser(@RequestBody User user) {
         int result = userService.updateUser(user);
