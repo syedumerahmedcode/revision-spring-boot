@@ -5,13 +5,31 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
 public class User {
 
     private final UUID userId;
+
+    @NotNull
     private final String firstname;
+
+    @NotNull
     private final String lastname;
+
+    @NotNull
     private final Gender gender;
+
+    @NotNull
+    @Max(value = 112)
+    @Min(value = 0)
     private final Integer age;
+
+    @NotNull
+    @Email
     private final String email;
 
     public User(

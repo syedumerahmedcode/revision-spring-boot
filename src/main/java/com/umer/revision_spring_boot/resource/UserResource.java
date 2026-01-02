@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,9 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.umer.revision_spring_boot.model.User;
 import com.umer.revision_spring_boot.service.UserService;
 
+import jakarta.validation.Valid;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 
+@Validated
 @RestController
 @RequestMapping(path = "/api/v1/users")
 public class UserResource {
@@ -57,7 +60,7 @@ public class UserResource {
             consumes = MediaType.APPLICATION_JSON,
             produces = MediaType.APPLICATION_JSON
     )
-    public ResponseEntity<Integer> insertNewUser(@RequestBody User user) {
+    public ResponseEntity<Integer> insertNewUser(@Valid @RequestBody User user) {
         int result = userService.insertUser(user);
         if (result == 1) {
             return ResponseEntity.ok().build();
