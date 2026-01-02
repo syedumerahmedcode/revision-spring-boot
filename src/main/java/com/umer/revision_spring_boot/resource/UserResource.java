@@ -60,7 +60,33 @@ public class UserResource {
         } else {
             return ResponseEntity.badRequest().build();
         }
+    }
 
+    @RequestMapping(
+            method = RequestMethod.PUT,
+            consumes = MediaType.APPLICATION_JSON
+    )
+    public ResponseEntity<Integer> updateUser(@RequestBody User user) {
+        int result = userService.updateUser(user);
+        if (result == 1) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @RequestMapping(
+            method = RequestMethod.DELETE,
+            path = "{userId}"
+    )
+    public ResponseEntity<Integer> removeUser(@PathVariable("userId") UUID userId
+    ) {
+        int result = userService.removeUser(userId);
+        if (result == 1) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
 }
