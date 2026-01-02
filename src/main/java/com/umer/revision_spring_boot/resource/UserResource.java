@@ -1,9 +1,12 @@
 package com.umer.revision_spring_boot.resource;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,8 +37,13 @@ public class UserResource {
             method = RequestMethod.GET,
             path = "{userId}"
     )
-    public User fetchUser(@PathVariable("userId") UUID userId) {
-        return userService.getUser(userId).get();
+    public ResponseEntity<?> fetchUser(@PathVariable("userId") UUID userId) {
+        Optional<User> userOptional = userService.getUser(userId);
+        if (userOptional.isPresent()) {
+            return ResponseEntity.ok(userOptional.get());
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("user " + userId + " is not found.");
+        }
     }
 
 }
