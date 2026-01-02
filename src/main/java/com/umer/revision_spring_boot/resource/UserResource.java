@@ -8,12 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.umer.revision_spring_boot.model.User;
 import com.umer.revision_spring_boot.service.UserService;
+
+import jakarta.ws.rs.core.MediaType;
 
 @RestController
 @RequestMapping(path = "/api/v1/users")
@@ -44,6 +47,20 @@ public class UserResource {
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("user " + userId + " is not found.");
         }
+    }
+
+    @RequestMapping(
+            method = RequestMethod.POST,
+            consumes = MediaType.APPLICATION_JSON
+    )
+    public ResponseEntity<Integer> insertNewUser(@RequestBody User user) {
+        int result = userService.insertUser(user);
+        if (result == 1) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.badRequest().build();
+        }
+
     }
 
 }
